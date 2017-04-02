@@ -12,7 +12,11 @@ import android.view.MenuItem;
 
 import com.microsoft.azure.mobile.MobileCenter;
 import com.microsoft.azure.mobile.analytics.Analytics;
+import com.microsoft.azure.mobile.analytics.ingestion.models.EventLog;
 import com.microsoft.azure.mobile.crashes.Crashes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Start Mobile Center SDK
         // Remember to replace {Your App Secret} with your actual App Secret
-        // MobileCenter.start(getApplication(), "{Your App Secret}", Analytics.class, Crashes.class);
+        MobileCenter.start(getApplication(), "b1e89a44-65d1-4355-bbc5-95a63b351d3b", Analytics.class, Crashes.class);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user clicks on "Crash Me" button */
     public void crashApp(View view) {
 
+        Analytics.setEnabled(true);
+        Analytics.trackEvent("test");
+        Analytics.trackEvent("test", new HashMap<String, String>());
+
         // Call the API to generate test crash for the app
-        Crashes.generateTestCrash();
+        //Crashes.generateTestCrash();
     }
 }
